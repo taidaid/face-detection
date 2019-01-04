@@ -102,18 +102,16 @@ class App extends Component {
   onButtonSubmit = event => {
     console.log(event.type);
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict("eeed0b6733a644cea07cf4c60f87ebb7", this.state.input)
-      .then(
-        response => {
-          const color = response.outputs[0].data.colors[0].raw_hex;
-          this.setState({ color: color });
-          console.log("color: " + this.state.color);
-        },
-        function(err) {
-          // there was an error
-        }
-      );
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
+      response => {
+        const boundingBox =
+          response.outputs[0].data.regions[0].region_info.bounding_box;
+        console.log(boundingBox);
+      },
+      function(err) {
+        // there was an error
+      }
+    );
   };
 
   render() {
@@ -127,10 +125,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition
-          imageUrl={this.state.imageUrl}
-          color={this.state.color}
-        />
+        <FaceRecognition imageUrl={this.state.imageUrl} />
       </div>
     );
   }
