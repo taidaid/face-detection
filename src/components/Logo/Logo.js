@@ -4,9 +4,9 @@ import "./Logo.css";
 
 const Logo = () => {
   return (
-    <div className="ma4 mt0">
+    <div>
       <Tilt
-        className="Tilt br2 shadow-2 self-center"
+        className="Tilt br2 shadow-2 center"
         options={{ max: 50 }}
         style={{ height: 40, width: 150 }}
       >

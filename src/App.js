@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import SignIn from "./components/SignIn/SignIn";
 import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
+import Register from "./components/Register/Register";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Particles from "react-particles-js";
@@ -90,47 +92,95 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
-      color: ""
+      color: "",
+      faceBoxes: [],
+      route: "signIn",
+      isSignedIn: false
     };
   }
 
+  calculateFaceLocation = boundingBoxes => {
+    // console.log(boundingBox);
+    const faceBoxes = boundingBoxes.map(box => {
+      const image = document.getElementById("image");
+      const width = Number(image.width);
+      const height = Number(image.height);
+      // console.log(width, height);
+      return {
+        leftCol: box.left_col * width,
+        topRow: box.top_row * height,
+        rightCol: width - box.right_col * width,
+        bottomRow: height - box.bottom_row * height
+      };
+    });
+    return faceBoxes;
+  };
+
+  displayFaceBox = faceBoxes => {
+    this.setState({ faceBoxes });
+    // console.log(box);
+  };
+
   onInputChange = event => {
     this.setState({ input: event.target.value });
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   onButtonSubmit = event => {
-    console.log(event.type);
+    // console.log(event.type);
     this.setState({ imageUrl: this.state.input });
     app.models
-      .predict("eeed0b6733a644cea07cf4c60f87ebb7", this.state.input)
-      .then(
-        response => {
-          const color = response.outputs[0].data.colors[0].raw_hex;
-          this.setState({ color: color });
-          console.log("color: " + this.state.color);
-        },
-        function(err) {
-          // there was an error
-        }
-      );
+      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .then(response => {
+        const boundingBoxes = response.outputs[0].data.regions.map(
+          region => region.region_info.bounding_box
+        );
+        console.log(boundingBoxes);
+        this.displayFaceBox(this.calculateFaceLocation(boundingBoxes));
+      })
+      .catch(err => console.log(err));
+  };
+
+  onRouteChange = route => {
+    if (route === "signIn" || route === "register") {
+      this.setState({ isSignedIn: false });
+    } else if (route === "home") {
+      this.setState({ isSignedIn: true });
+    }
+    this.setState({ route });
   };
 
   render() {
+    const { isSignedIn, imageUrl, route, faceBoxes } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particlesOptions} />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
-        />
-        <FaceRecognition
-          imageUrl={this.state.imageUrl}
-          color={this.state.color}
-        />
+        <div className="justify-between  Navbar pa4">
+          <div className="">
+            <Logo />
+          </div>
+          <div className="">
+            <Navigation
+              isSignedIn={isSignedIn}
+              onRouteChange={this.onRouteChange}
+            />
+          </div>
+        </div>
+
+        {route === "home" ? (
+          <div>
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
+          </div>
+        ) : route === "signIn" ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
+        )}
       </div>
     );
   }
