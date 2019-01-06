@@ -2,34 +2,11 @@
   display: flex;
   flex-flow: column;
 }
-legend:hover {
+
+.white:hover {
   color: white;
 }
 
-legend:focus {
-  color: white;
-}
-
-label:hover {
-  color: white;
-}
-
-label:focus {
-  color: white;
-}
-
-input:hover {
-  color: white;
-}
-
-input:focus {
-  color: white;
-}
-
-a:hover {
-  color: white;
-}
-
-a:focus {
+.white:focus {
   color: white;
 }
