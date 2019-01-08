@@ -9,13 +9,14 @@ const FaceRecognition = ({ imageUrl, faceBoxes }) => {
         <div className="absolute mt2">
           <img id="image" alt={""} src={imageUrl} />
 
-          {faceBoxes.map(box => {
+          {faceBoxes.map((box, i) => {
             const fontSize = box.bottomRow - box.topRow;
             console.log(
               "top row: " + box.topRow + "bottom row: " + box.bottomRow
             );
             return (
               <div
+                key={i}
                 className="boundingBox ma0"
                 style={{
                   top: box.topRow,
