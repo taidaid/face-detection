@@ -20,7 +20,8 @@ const FaceRecognition = ({ imageUrl, faceBoxes }) => {
                   right: box.rightCol,
                   bottom: box.bottomRow,
                   left: box.leftCol,
-                  fontSize: `${fontSize / 10}vw`
+                  fontSize: `${document.getElementById("image").height /
+                    fontSize}vw`
                 }}
               >
                 😁
