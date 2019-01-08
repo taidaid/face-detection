@@ -6,7 +6,7 @@ const SignIn = ({ onRouteChange }) => {
     <div>
       <article className=" center ma0 br3 ba dark-gray b--black-10  w-100  center">
         <main className=" w-100 pa4 black-80">
-          <form className="signIn w-100 pa2 shadow-5 hover-bg-black-10:focus hover-bg-black-10:hover measure center">
+          <div className="signIn w-100 pa2 shadow-5 hover-bg-black-10:focus hover-bg-black-10:hover measure center">
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="hover-white f2 fw6 ph0 mh0">Sign In</legend>
               <div className="mt3">
@@ -58,7 +58,7 @@ const SignIn = ({ onRouteChange }) => {
                 Forgot your password?
               </a>
             </div>
-          </form>
+          </div>
         </main>
       </article>
     </div>

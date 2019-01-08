@@ -11,7 +11,9 @@ const FaceRecognition = ({ imageUrl, faceBoxes }) => {
 
           {faceBoxes.map(box => {
             const fontSize = box.bottomRow - box.topRow;
-            console.log(fontSize);
+            console.log(
+              "top row: " + box.topRow + "bottom row: " + box.bottomRow
+            );
             return (
               <div
                 className="boundingBox ma0"
@@ -24,7 +26,7 @@ const FaceRecognition = ({ imageUrl, faceBoxes }) => {
                     fontSize}vw`
                 }}
               >
-                😁
+                <div className="self-center">😁</div>
               </div>
             );
           })}
