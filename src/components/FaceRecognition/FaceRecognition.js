@@ -12,7 +12,7 @@ const FaceRecognition = ({ imageUrl, faceBoxes }) => {
           {faceBoxes.map((box, i) => {
             const fontSize = box.bottomRow - box.topRow;
             console.log(
-              "top row: " + box.topRow + "bottom row: " + box.bottomRow
+              "top row: " + box.topRow + " bottom row: " + box.bottomRow
             );
             return (
               <div
