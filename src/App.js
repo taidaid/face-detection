@@ -159,7 +159,15 @@ class App extends Component {
             body: JSON.stringify({
               id: this.state.user.id
             })
-          });
+          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState({
+                users: {
+                  entries: count
+                }
+              });
+            });
         }
         const boundingBoxes = response.outputs[0].data.regions.map(
           region => region.region_info.bounding_box
@@ -198,10 +206,13 @@ class App extends Component {
 
         {route === "home" ? (
           <div>
-            <Rank />
+            <Rank
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <ImageLinkForm
               name={this.state.user.name}
-              entires={this.state.user.entries}
+              entries={this.state.user.entries}
               onInputChange={this.onInputChange}
               onPictureSubmit={this.onPictureSubmit}
             />
