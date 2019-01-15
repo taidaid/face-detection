@@ -1,4 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
+- This app accepts an image URL, displays the image, and detects all faces in the image
+- The app then draws a box outline around each face
+
+## Features
+- Login/Register
+- Records amount of images entered per user
+
+### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
