@@ -95,9 +95,28 @@ class App extends Component {
       color: "",
       faceBoxes: [],
       route: "signIn",
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        entries: 0,
+        joined: ""
+      }
     };
   }
+
+  loadUser = user => {
+    this.setState({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        entries: user.entries,
+        joined: user.joined
+      }
+    });
+  };
 
   calculateFaceLocation = boundingBoxes => {
     // console.log(boundingBox);
@@ -171,15 +190,20 @@ class App extends Component {
           <div>
             <Rank />
             <ImageLinkForm
+              name={this.state.user.name}
+              entires={this.state.user.entries}
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onButtonSubmit}
             />
             <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
           </div>
         ) : route === "signIn" ? (
-          <SignIn onRouteChange={this.onRouteChange} />
+          <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
         ) : (
-          <Register onRouteChange={this.onRouteChange} />
+          <Register
+            loadUser={this.loadUser}
+            onRouteChange={this.onRouteChange}
+          />
         )}
       </div>
     );
