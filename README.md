@@ -1,4 +1,4 @@
-## Face Detection App
+# face-detection
 This app accepts an image URL, displays the image, and detects all faces in the image
 The app then draws a box outline around each face 
 
