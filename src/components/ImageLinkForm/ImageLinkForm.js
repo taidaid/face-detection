@@ -4,7 +4,7 @@ import "./ImageLinkForm.css";
 const ImageLinkForm = ({ onInputChange, onPictureSubmit }) => {
   return (
     <div>
-      <p className="f3 gray">
+      <p className="f3 white">
         This Magic App will detect faces in your pictures
       </p>
       <div className="center">

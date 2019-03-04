@@ -10,7 +10,7 @@ const Logo = () => {
         options={{ max: 50 }}
         style={{ height: 40, width: 150 }}
       >
-        <div className="Tilt-inner gray pa2">Know.more</div>
+        <div className="Tilt-inner gray hover-white pa2">Know.more</div>
       </Tilt>
     </div>
   );

@@ -43,9 +43,9 @@ class SignIn extends React.Component {
 
     return (
       <div>
-        <article className=" center ma0 br3 ba dark-gray b--black-10  w-100 ">
-          <main className=" w-100 pa4 black-80">
-            <div className="signIn w-100 pa2 shadow-5 hover-bg-black-10:focus hover-bg-black-10:hover measure center">
+        <article className=" center ma0 br3 ba b--black-10  w-100 ">
+          <main className=" w-100 pa4 moon-gray">
+            <form className="signIn w-100 pa2 shadow-5 measure center">
               <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                 <legend className="hover-white f2 fw6 ph0 mh0">Sign In</legend>
                 <div className="mt3">
@@ -57,7 +57,7 @@ class SignIn extends React.Component {
                   </label>
                   <input
                     onChange={this.onEmailChange}
-                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                    className="pa2 input-reset ba bg-transparent moon-gray hover-bg-black hover-white w-100"
                     type="email"
                     name="email-address"
                     id="email-address"
@@ -72,7 +72,7 @@ class SignIn extends React.Component {
                   </label>
                   <input
                     onChange={this.onPasswordChange}
-                    className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                    className="b pa2 input-reset ba bg-transparent moon-gray hover-bg-black hover-white w-100"
                     type="password"
                     name="password"
                     id="password"
@@ -82,7 +82,7 @@ class SignIn extends React.Component {
               <div className="">
                 <input
                   onClick={this.onSubmitSignIn}
-                  className="hover-white b pointer ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                  className="hover-white b pointer ph3 pv2 input-reset ba moon-gray hover-bg-black b--black bg-transparent grow pointer f6 dib"
                   type="submit"
                   value="Sign in"
                 />
@@ -102,7 +102,7 @@ class SignIn extends React.Component {
                   Forgot your password?
                 </a>
               </div>
-            </div>
+            </form>
           </main>
         </article>
       </div>

@@ -8,7 +8,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
       <nav className="center ">
         <p
           onClick={() => onRouteChange("signIn")}
-          className="f3 link dim tr b--solid bw1 br2 gray underline pa3 pointer ml0"
+          className="f3 link hover-white tr b--solid bw1 br2 gray underline pa3 pointer ml0"
         >
           Sign Out
         </p>
@@ -19,14 +19,14 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
       <nav className="center ">
         <p
           onClick={() => onRouteChange("signIn")}
-          className="f3 link dim tr b--solid bw1 br2 gray underline pa3 pointer ml3"
+          className="f3 link hover-white tr b--solid bw1 br2 gray underline pa3 pointer ml3"
         >
           Sign In
         </p>
 
         <p
           onClick={() => onRouteChange("register")}
-          className="f3 link dim tr b--solid bw1 br2 gray underline pa3 pointer ml3"
+          className="f3 link hover-white tr b--solid bw1 br2 gray underline pa3 pointer ml3"
         >
           Register
         </p>

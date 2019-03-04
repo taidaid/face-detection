@@ -23,7 +23,7 @@ class Register extends React.Component {
     this.setState({ password: event.target.value });
   };
 
-  onSubmitRegister = () => {
+  onSubmitRegister = e => {
     fetch("http://localhost:3000/register", {
       method: "post",
       headers: {
@@ -47,21 +47,21 @@ class Register extends React.Component {
   render() {
     return (
       <div>
-        <article className="center ma0 br3 ba dark-gray b--black-10 w-100">
-          <main className="w-100 pa4 black-80">
-            <div className="Register pa2 shadow-5 flex-column hover-bg-black-10:focus hover-bg-black-10:hover measure center">
+        <article className="center ma0 br3 ba moon-gray b--black-10 w-100">
+          <main className="w-100 pa4 ">
+            <form className="Register pa2 shadow-5 flex-column hover-bg-black-10:focus hover-bg-black-10:hover measure center">
               <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                 <legend className="f2 fw6 ph0 mh0 hover-white">Register</legend>
                 <div className="mt3">
                   <label
-                    className="db fw6 lh-copy f6 hover-white"
+                    className="db fw6 lh-copy f6 hover-white "
                     htmlFor="name"
                   >
                     Name
                   </label>
                   <input
                     onChange={this.onNameChange}
-                    className="pa2 input-reset ba bg-transparent hover-bg-black  w-100"
+                    className="pa2 input-reset ba bg-transparent hover-white hover-bg-black moon-gray w-100"
                     type="text"
                     name="name"
                     id="name"
@@ -76,7 +76,7 @@ class Register extends React.Component {
                   </label>
                   <input
                     onChange={this.onEmailChange}
-                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                    className="pa2 input-reset ba bg-transparent moon-gray hover-bg-black hover-white w-100"
                     type="email"
                     name="email-address"
                     id="email-address"
@@ -91,7 +91,7 @@ class Register extends React.Component {
                   </label>
                   <input
                     onChange={this.onPasswordChange}
-                    className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                    className="b pa2 input-reset ba bg-transparent moon-gray hover-bg-black hover-white w-100"
                     type="password"
                     name="password"
                     id="password"
@@ -102,12 +102,12 @@ class Register extends React.Component {
                 <button
                   type="button"
                   onClick={this.onSubmitRegister}
-                  className="b hover-white ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                  className="b  ph3 pv2 moon-gray input-reset ba hover-bg-black hover-white b--black bg-transparent grow pointer f6 dib"
                 >
                   Register
                 </button>
               </div>
-            </div>
+            </form>
           </main>
         </article>
       </div>

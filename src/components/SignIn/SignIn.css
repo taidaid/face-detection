@@ -2,11 +2,3 @@
   display: flex;
   flex-flow: column;
 }
-
-.white:hover {
-  color: white;
-}
-
-.white:focus {
-  color: white;
-}
