@@ -1,10 +1,11 @@
-## About
-- This app accepts an image URL, displays the image, and detects all faces in the image
-- The app then draws a box outline around each face
+# face-detection
+This app accepts an image URL, displays the image, and detects all faces in the image
+The app then draws a box outline around each face 
 
 ## Features
 - Login/Register
 - Records amount of images entered per user
+- Face detection via Clarifai API
 
 ### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
