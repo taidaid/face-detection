@@ -24,24 +24,24 @@ class Register extends React.Component {
   };
 
   onSubmitRegister = e => {
-    fetch("http://localhost:3000/register", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
-      })
-    })
-      .then(response => response.json())
-      .then(user => {
-        if (user) {
-          this.props.loadUser(user);
-          this.props.onRouteChange("home");
-        }
-      });
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const id = (users.length || 0) + 1;
+    const entries = 0;
+    const joined = new Date();
+    const user = {
+      id: id,
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      entries: entries,
+      joined: joined
+    };
+
+    localStorage.setItem("users", JSON.stringify([...(users || []), user]));
+
+    this.props.loadUser(user);
+    this.props.onRouteChange("home");
   };
 
   render() {
@@ -99,13 +99,12 @@ class Register extends React.Component {
                 </div>
               </fieldset>
               <div className="">
-                <button
-                  type="button"
+                <input
                   onClick={this.onSubmitRegister}
-                  className="b  ph3 pv2 moon-gray input-reset ba hover-bg-black hover-white b--black bg-transparent grow pointer f6 dib"
-                >
-                  Register
-                </button>
+                  className="hover-white b pointer ph3 pv2 input-reset ba moon-gray hover-bg-black b--black bg-transparent grow pointer f6 dib"
+                  type="submit"
+                  value="Register"
+                />
               </div>
             </form>
           </main>

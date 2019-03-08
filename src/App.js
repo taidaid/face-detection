@@ -3,6 +3,7 @@ import SignIn from "./components/SignIn/SignIn";
 import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
+import Reset from "./components/Reset/Reset";
 import Register from "./components/Register/Register";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
@@ -86,24 +87,26 @@ const particlesOptions = {
   }
 };
 
+const initialState = {
+  input: "",
+  imageUrl: "",
+  color: "",
+  faceBoxes: [],
+  route: "signIn",
+  isSignedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: ""
+  }
+};
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: "",
-      imageUrl: "",
-      color: "",
-      faceBoxes: [],
-      route: "signIn",
-      isSignedIn: false,
-      user: {
-        id: "",
-        name: "",
-        email: "",
-        entries: 0,
-        joined: ""
-      }
-    };
+    this.state = initialState;
   }
 
   loadUser = user => {
@@ -119,12 +122,11 @@ class App extends Component {
   };
 
   calculateFaceLocation = boundingBoxes => {
-    // console.log(boundingBox);
     const faceBoxes = boundingBoxes.map(box => {
       const image = document.getElementById("image");
       const width = Number(image.width);
       const height = Number(image.height);
-      // console.log(width, height);
+
       return {
         leftCol: box.left_col * width,
         topRow: box.top_row * height,
@@ -137,37 +139,34 @@ class App extends Component {
 
   displayFaceBox = faceBoxes => {
     this.setState({ faceBoxes });
-    // console.log(box);
   };
 
   onInputChange = event => {
     this.setState({ input: event.target.value });
-    // console.log(event.target.value);
   };
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
+    let entries = this.state.user.entries;
+    console.log(entries);
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => {
         if (response) {
-          fetch("http://localhost:3000/image", {
-            method: "put",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
-          })
-            .then(response => response.json())
-            .then(count => {
-              this.setState({
-                users: {
-                  entries: count
-                }
-              });
-            });
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          const user = users.filter(user => {
+            return user.id === this.state.user.id;
+          });
+          // console.log(user);
+          if (user[0]) {
+            entries++;
+            user[0] = { ...user[0], entries: entries };
+            localStorage.setItem(
+              "users",
+              JSON.stringify([...(users || []), user[0]])
+            );
+            this.setState({ user: user[0] });
+          }
         }
         const boundingBoxes = response.outputs[0].data.regions.map(
           region => region.region_info.bounding_box
@@ -180,7 +179,7 @@ class App extends Component {
 
   onRouteChange = route => {
     if (route === "signIn" || route === "register") {
-      this.setState({ isSignedIn: false });
+      this.setState(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
@@ -220,6 +219,8 @@ class App extends Component {
           </div>
         ) : route === "signIn" ? (
           <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+        ) : route === "reset" ? (
+          <Reset />
         ) : (
           <Register
             loadUser={this.loadUser}

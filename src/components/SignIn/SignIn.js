@@ -18,24 +18,23 @@ class SignIn extends React.Component {
     this.setState({ signInPassword: event.target.value });
   };
 
-  onSubmitSignIn = () => {
-    fetch("http://localhost:3000/signin", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: this.state.signInEmail,
-        password: this.state.signInPassword
-      })
-    })
-      .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          this.props.loadUser(user);
-          this.props.onRouteChange("home");
-        }
-      });
+  onSubmitSignIn = e => {
+    e.preventDefault();
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const user = users.filter(user => {
+      return (
+        user.email === this.state.signInEmail &&
+        user.password === this.state.signInPassword
+      );
+    });
+
+    if (user[0]) {
+      this.props.loadUser(user[0]);
+      this.props.onRouteChange("home");
+    } else {
+      alert("Sorry, email/password combo is incorrect");
+    }
   };
 
   render() {
@@ -81,7 +80,7 @@ class SignIn extends React.Component {
               </fieldset>
               <div className="">
                 <input
-                  onClick={this.onSubmitSignIn}
+                  onClick={e => this.onSubmitSignIn(e)}
                   className="hover-white b pointer ph3 pv2 input-reset ba moon-gray hover-bg-black b--black bg-transparent grow pointer f6 dib"
                   type="submit"
                   value="Sign in"
@@ -96,6 +95,7 @@ class SignIn extends React.Component {
                   Register
                 </a>
                 <a
+                  onClick={() => onRouteChange("reset")}
                   href="#0"
                   className="hover-white f6 pointer link dim black db"
                 >
